@@ -1,2 +1,6 @@
 # aiokyasher
-PythonでKyashを操作するライブラリ「Kyasher」のasyncio版です。これでdiscord.pyでも使えますね
+PythonのasyncioでKyashを操作するライブラリ
+## How to install
+```
+pip install git+https://github.com/nennneko5787/aiokyasher.git
+```
