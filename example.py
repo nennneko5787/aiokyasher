@@ -12,8 +12,8 @@ async def main():
     print(kyash.client_uuid)
     print(kyash.installation_uuid)#クライアントUUIDとインストレーションUUIDは2つで1セット
 
-    kyash.initialize("メールアドレス","パスワード","登録済みクライアントUUID","登録済みインストレーションUUID")#これでログイン時のOTP認証をスキップできる
-    kyash.initialize(access_token="アクセストークン")#またはトークンでログイン
+    await kyash.initialize("メールアドレス","パスワード","登録済みクライアントUUID","登録済みインストレーションUUID")#これでログイン時のOTP認証をスキップできる
+    await kyash.initialize(access_token="アクセストークン")#またはトークンでログイン
 
     await kyash.get_profile()  # プロフィール取得
     print(kyash.username)  # ユーザーネーム
