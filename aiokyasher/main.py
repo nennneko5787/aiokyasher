@@ -19,8 +19,8 @@ class NetWorkError(Exception):
 
 class Kyash:
     """
-        スマホアプリ「Kyash」をPythonから操作するモジュール
-        SMS以外は必要ありません。
+    スマホアプリ「Kyash」をPythonから操作するモジュール
+    SMS以外は必要ありません。
     """
 
     def __init__(self, proxy: dict = None):
@@ -375,7 +375,7 @@ class Kyash:
             url = "https://kyash.me/payments/" + url
 
         try:
-            link_info = await self.http.get(url).text
+            link_info = (await self.http.get(url)).text
             soup = BeautifulSoup(link_info, "html.parser")
             try:
                 self.link_amount = soup.find(

@@ -5,15 +5,24 @@ from aiokyasher import Kyash
 
 async def main():
     kyash = Kyash()
-    await kyash.login("メールアドレス","パスワード",proxy=None)#引数にプロキシを設定できる、proxy=dict
-    otp=input("OTP? :")#SMSに届いた6桁の認証番号
+    await kyash.login(
+        "メールアドレス", "パスワード", proxy=None
+    )  # 引数にプロキシを設定できる、proxy=dict
+    otp = input("OTP? :")  # SMSに届いた6桁の認証番号
     await kyash.validate_otp(otp)
-    print(kyash.access_token)#有効期限は1ヶ月
+    print(kyash.access_token)  # 有効期限は1ヶ月
     print(kyash.client_uuid)
-    print(kyash.installation_uuid)#クライアントUUIDとインストレーションUUIDは2つで1セット
+    print(
+        kyash.installation_uuid
+    )  # クライアントUUIDとインストレーションUUIDは2つで1セット
 
-    await kyash.login("メールアドレス","パスワード","登録済みクライアントUUID","登録済みインストレーションUUID")#これでログイン時のOTP認証をスキップできる
-    await kyash.login(access_token="アクセストークン")#またはトークンでログイン
+    await kyash.login(
+        "メールアドレス",
+        "パスワード",
+        "登録済みクライアントUUID",
+        "登録済みインストレーションUUID",
+    )  # これでログイン時のOTP認証をスキップできる
+    await kyash.login(access_token="アクセストークン")  # またはトークンでログイン
 
     await kyash.get_profile()  # プロフィール取得
     print(kyash.username)  # ユーザーネーム
