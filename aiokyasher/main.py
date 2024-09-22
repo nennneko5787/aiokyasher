@@ -167,7 +167,7 @@ class Kyash:
 
         Raises:
             KyashLoginError: まずはログインしてください
-            KyashError: Kyashから発行されるエラー・
+            KyashError: Kyashから発行されるエラー。
 
         Returns:
             dict: Kyashのプロファイル。
@@ -191,6 +191,15 @@ class Kyash:
         return getprofile
 
     async def get_wallet(self) -> dict:
+        """Kyashポイント、Kyashバリュー、及びKyashマネーを取得します。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: Kyashから発行されるエラー。
+
+        Returns:
+            dict: Kyashのウォレット情報。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -216,6 +225,20 @@ class Kyash:
         return getwallet
 
     async def get_history(self, wallet_uuid: str = None, limit: int = 3) -> dict:
+        """ウォレットの使用履歴を確認します。
+
+        Args:
+            wallet_uuid (str, optional): ウォレットUUID。
+            limit (int, optional): 取得する履歴の数。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: ウォレットUUIDを取得する際にKyashから発行されるエラー。
+            KyashError: 履歴を取得する際にKyashから発行されるエラー。
+
+        Returns:
+            dict: ウォレットの使用履歴。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -246,6 +269,19 @@ class Kyash:
         return gethistory
 
     async def get_summary(self, year: int = None, month: int = None) -> dict:
+        """家計簿を取得します。
+
+        Args:
+            year (int, optional): 年。
+            month (int, optional): 月。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: Kyashから発行されるエラー。
+
+        Returns:
+            dict: 家計簿。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -275,6 +311,20 @@ class Kyash:
     async def create_link(
         self, amount: int, message: str = "", is_claim: bool = False
     ) -> dict:
+        """送金・請求リンクを作成します。
+
+        Args:
+            amount (int): 請求額。
+            message (str, optional): 送金・請求するときに表示されるメッセージ。
+            is_claim (bool, optional): リンクを請求リンクとして生成するかどうか。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: Kyashから発行されるエラー。
+
+        Returns:
+            dict: 作成されたリンクとその情報。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -305,6 +355,19 @@ class Kyash:
         return create
 
     async def link_check(self, url: str) -> dict:
+        """送金・請求リンクが有効なものかを確認します。
+
+        Args:
+            url (str): https://kyash.me/payments/から始まるリンク、またはリンクID。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: Kyashから発行されるエラー。
+            KyashError: 処理済みのリンクのため、チェックに失敗しました
+
+        Returns:
+            dict: リンクの情報。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -351,9 +414,21 @@ class Kyash:
         return link_info
 
     async def link_recieve(self, url: str = None, link_uuid: str = None) -> dict:
-        if not self.access_token:
-            raise KyashLoginError("まずはログインしてください")
+        """送金リンクを受理します。
 
+        Args:
+            url (str, optional): https://kyash.me/payments/から始まるリンク、またはリンクID。
+            link_uuid (str, optional): リンクUUID。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: 有効な受け取りリンクがありません
+            KyashError: 処理済みまたは受け取りリンクではありません
+            KyashError: Kyashから発行されるエラー。
+
+        Returns:
+            dict: 使用されたリンクの情報。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -388,6 +463,20 @@ class Kyash:
         return recieve
 
     async def link_cancel(self, url: str = None, link_uuid: str = None) -> dict:
+        """送金・請求リンクを削除します。
+
+        Args:
+            url (str, optional): https://kyash.me/payments/から始まるリンク、またはリンクID。
+            link_uuid (str, optional): リンクUUID。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: 有効な受け取りリンクがありません
+            KyashError: Kyashから発行されるエラー。
+
+        Returns:
+            dict: 削除されたリンクの情報。
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
@@ -421,6 +510,23 @@ class Kyash:
     async def send_to_link(
         self, url: str = None, message: str = "", link_info: str = None
     ):
+        """請求リンクを受理します。
+
+        Args:
+            url (str, optional): https://kyash.me/payments/から始まるリンク、またはリンクID。
+            message (str, optional): 請求リンクを受理するときに表示されるメッセージ。
+            link_uuid (str, optional): リンクUUID。
+
+        Raises:
+            KyashLoginError: まずはログインしてください
+            KyashError: 有効な受け取りリンクがありません
+            KyashError: リンクの情報を取得する際にKyashから発行されるエラー。
+            KyashError: 処理済みまたは請求リンクではありません
+            KyashError: 請求リンクを受理するときにKyashから発行されるエラー。
+
+        Returns:
+            _type_: _description_
+        """
         if not self.access_token:
             raise KyashLoginError("まずはログインしてください")
 
