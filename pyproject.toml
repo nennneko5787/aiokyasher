@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "aiokyasher"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
   { name="nennneko5787", email="h4369@nennneko5787.net" },
 ]
@@ -24,4 +24,4 @@ Homepage = "https://github.com/nennneko5787/aiokyasher"
 Issues = "https://github.com/nennneko5787/aiokyasher/issues"
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+dependencies = { file = ["requirements.txt"] }
