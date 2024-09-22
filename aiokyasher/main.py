@@ -538,7 +538,7 @@ class Kyash:
                 url = "https://kyash.me/payments/" + url
 
             try:
-                link_info = await self.http.get(url).text
+                link_info = (await self.http.get(url)).text
                 soup = BeautifulSoup(link_info, "html.parser")
                 link_amount = soup.find(class_="amountText text_request").text.replace(
                     "¥", ""
