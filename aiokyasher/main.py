@@ -23,13 +23,13 @@ class Kyash:
     SMS以外は必要ありません。
     """
 
-    def __init__(self, proxy: dict = None):
+    def __init__(self, proxy: str = None):
         """Kyasherを呼び出します。
 
         Args:
-            proxy (dict, optional): 内部のHTTPライブラリ(HTTPX)で使われるプロキシ。
+            proxy (str, optional): 内部のHTTPライブラリ(HTTPX)で使われるプロキシ。
         """
-        self.http = AsyncClient(proxies=proxy)
+        self.http = AsyncClient(proxy=proxy)
 
     async def login(
         self,
